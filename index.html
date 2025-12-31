@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy Football Wrapped</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        h1 {
+            font-size: clamp(36px, 8vw, 72px);
+            font-weight: 900;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: clamp(16px, 3vw, 24px);
+            opacity: 0.7;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .leagues {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .league-card {
+            display: block;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 25px 30px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .league-card:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .league-name {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .league-meta {
+            font-size: 14px;
+            opacity: 0.7;
+        }
+
+        .emoji {
+            font-size: 32px;
+            margin-right: 15px;
+        }
+
+        .league-card-inner {
+            display: flex;
+            align-items: center;
+        }
+
+        footer {
+            margin-top: 60px;
+            font-size: 14px;
+            opacity: 0.5;
+            text-align: center;
+        }
+
+        footer a {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fantasy Football Wrapped</h1>
+    <p class="subtitle">Season analysis powered by 100,000 schedule simulations</p>
+
+    <div class="leagues">
+        <a href="sheldon-lake-ffb-25.html" class="league-card">
+            <div class="league-card-inner">
+                <span class="emoji">🏈</span>
+                <div>
+                    <div class="league-name">Sheldon Lake FFB</div>
+                    <div class="league-meta">2025 Season • 12 Teams • 14 Weeks</div>
+                </div>
+            </div>
+        </a>
+        <!-- Add more leagues here -->
+    </div>
+
+    <footer>
+        Built with <a href="https://claude.com/claude-code" target="_blank">Claude Code</a>
+    </footer>
+</body>
+</html>

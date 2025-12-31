@@ -1,0 +1,128 @@
+{
+  "actual_standings": [
+    [
+      "Fourth and Jonny",
+      10,
+      4,
+      1638.42
+    ],
+    [
+      "Zak Attack",
+      9,
+      5,
+      1653.76
+    ],
+    [
+      "The Bradys Bunch",
+      9,
+      5,
+      1589.72
+    ],
+    [
+      "Mattress Mack",
+      8,
+      6,
+      1652.2
+    ],
+    [
+      "All Cas No Breaks",
+      8,
+      6,
+      1598.8600000000001
+    ],
+    [
+      "Foxy Coxys",
+      8,
+      6,
+      1595.66
+    ],
+    [
+      "Goff Balls",
+      8,
+      6,
+      1484.62
+    ],
+    [
+      "Frank Reynolds",
+      7,
+      7,
+      1437.74
+    ],
+    [
+      "Move the Hicks",
+      6,
+      8,
+      1598.86
+    ],
+    [
+      "Will I Ams",
+      5,
+      9,
+      1335.7
+    ],
+    [
+      "Master Bates",
+      4,
+      10,
+      1377.08
+    ],
+    [
+      "Chasin Championships",
+      2,
+      12,
+      1334.9
+    ]
+  ],
+  "playoff_teams": [
+    "Mattress Mack",
+    "The Bradys Bunch",
+    "All Cas No Breaks",
+    "Zak Attack",
+    "Fourth and Jonny",
+    "Foxy Coxys"
+  ],
+  "expected_wins": {
+    "Mattress Mack": 9.0,
+    "Chasin Championships": 3.9999999999999996,
+    "The Bradys Bunch": 8.545454545454547,
+    "Frank Reynolds": 5.954545454545455,
+    "Master Bates": 4.545454545454545,
+    "Goff Balls": 5.999999999999999,
+    "All Cas No Breaks": 7.772727272727273,
+    "Zak Attack": 8.90909090909091,
+    "Will I Ams": 5.272727272727272,
+    "Fourth and Jonny": 8.636363636363637,
+    "Move the Hicks": 7.272727272727272,
+    "Foxy Coxys": 8.09090909090909
+  },
+  "simulation_results": {
+    "playoff_probabilities": {
+      "Mattress Mack": 93.364,
+      "The Bradys Bunch": 81.779,
+      "All Cas No Breaks": 71.07,
+      "Zak Attack": 95.98100000000001,
+      "Fourth and Jonny": 88.952,
+      "Foxy Coxys": 72.112,
+      "Move the Hicks": 55.884,
+      "Chasin Championships": 0.529,
+      "Frank Reynolds": 13.517999999999999,
+      "Will I Ams": 6.895,
+      "Goff Balls": 16.655,
+      "Master Bates": 3.261
+    },
+    "average_wins": {
+      "Mattress Mack": 8.99854,
+      "Zak Attack": 8.90091,
+      "The Bradys Bunch": 8.54812,
+      "Foxy Coxys": 8.08993,
+      "Fourth and Jonny": 8.6477,
+      "All Cas No Breaks": 7.72358,
+      "Move the Hicks": 7.26593,
+      "Frank Reynolds": 5.9126,
+      "Goff Balls": 5.99799,
+      "Will I Ams": 5.2766,
+      "Chasin Championships": 4.0013,
+      "Master Bates": 4.54631
+    }
+  }
+}
