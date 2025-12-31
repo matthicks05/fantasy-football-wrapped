@@ -2,3 +2,12 @@
 .claude/
 __pycache__/
 *.pyc
+
+# Local development files
+analyze_schedule.py
+league_report.py
+league_data.json
+analysis_results.json
+league_analysis_report.txt
+ff_analysis_prompt.md
+league_wrapped.html
