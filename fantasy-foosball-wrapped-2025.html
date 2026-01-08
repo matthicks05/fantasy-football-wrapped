@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fantasy FOOSBALL - Season Wrapped | FFWrapup</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* FFWrapup Brand Colors */
+        :root {
+            /* Backgrounds */
+            --deep-void: #0a0a0f;
+            --cosmic-dark: #0f1419;
+            --midnight: #1a1a2e;
+            --dusk: #16213e;
+            --twilight: #0f3460;
+
+            /* Accents */
+            --electric-teal: #00d4ff;
+            --cyber-cyan: #00fff7;
+            --pulse-magenta: #e94560;
+            --hot-pink: #ff006e;
+
+            /* Semantic */
+            --fortune-green: #00ff88;
+            --luck-emerald: #4ade80;
+            --champion-gold: #ffd700;
+            --amber-glow: #ffb700;
+
+            /* Neutrals */
+            --pure-white: #ffffff;
+            --soft-white: #f1f5f9;
+            --muted-gray: #94a3b8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--deep-void);
+            color: var(--pure-white);
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        .wrapped-container {
+            height: 100vh;
+            width: 100vw;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            pointer-events: all;
+        }
+
+        /* Brand-aligned slide gradients */
+        .slide-1 { background: linear-gradient(135deg, var(--deep-void) 0%, var(--midnight) 50%, var(--twilight) 100%); }
+        .slide-2 { background: linear-gradient(135deg, var(--deep-void) 0%, var(--pulse-magenta) 50%, var(--midnight) 100%); }
+        .slide-3 { background: linear-gradient(135deg, var(--twilight) 0%, var(--electric-teal) 50%, var(--cosmic-dark) 100%); }
+        .slide-4 { background: linear-gradient(135deg, var(--deep-void) 0%, var(--fortune-green) 50%, var(--midnight) 100%); }
+        .slide-5 { background: linear-gradient(135deg, var(--dusk) 0%, #7c4dff 50%, var(--deep-void) 100%); }
+        .slide-6 { background: linear-gradient(135deg, var(--midnight) 0%, var(--pulse-magenta) 50%, var(--hot-pink) 100%); }
+        .slide-7 { background: linear-gradient(135deg, var(--deep-void) 0%, var(--luck-emerald) 50%, var(--twilight) 100%); }
+        .slide-8 { background: linear-gradient(135deg, var(--cosmic-dark) 0%, var(--amber-glow) 50%, var(--champion-gold) 100%); }
+        .slide-9 { background: linear-gradient(135deg, var(--twilight) 0%, var(--electric-teal) 50%, var(--deep-void) 100%); }
+        .slide-10 { background: linear-gradient(135deg, var(--dusk) 0%, #ab47bc 50%, var(--deep-void) 100%); }
+        .slide-11 { background: linear-gradient(135deg, var(--deep-void) 0%, var(--pulse-magenta) 50%, var(--twilight) 100%); }
+
+        .slide-label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            opacity: 0.7;
+            margin-bottom: 20px;
+            color: var(--muted-gray);
+        }
+
+        .emoji {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .big-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: clamp(60px, 15vw, 150px);
+            font-weight: 700;
+            line-height: 1;
+            margin: 20px 0;
+            background: linear-gradient(180deg, var(--pure-white) 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .big-text {
+            font-size: clamp(32px, 8vw, 80px);
+            font-weight: 900;
+            line-height: 1.1;
+            margin: 20px 0;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .medium-text {
+            font-size: clamp(20px, 4vw, 40px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin: 15px 0;
+        }
+
+        .small-text {
+            font-size: clamp(14px, 2.5vw, 20px);
+            font-weight: 400;
+            opacity: 0.9;
+            max-width: 600px;
+            line-height: 1.5;
+            color: var(--soft-white);
+        }
+
+        .team-name {
+            font-size: clamp(24px, 5vw, 50px);
+            font-weight: 900;
+            color: var(--pure-white);
+            text-shadow: 0 4px 30px rgba(0,0,0,0.3);
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        .highlight {
+            color: var(--champion-gold);
+            text-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+        }
+
+        .highlight-green {
+            color: var(--fortune-green);
+            text-shadow: 0 0 30px rgba(0, 255, 136, 0.5);
+        }
+
+        .highlight-red {
+            color: var(--pulse-magenta);
+            text-shadow: 0 0 30px rgba(233, 69, 96, 0.5);
+        }
+
+        .highlight-teal {
+            color: var(--electric-teal);
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.5);
+        }
+
+        .standings-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin: 20px 0;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        .standings-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px 20px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .standings-item.playoff {
+            background: rgba(0, 255, 136, 0.15);
+            border: 1px solid rgba(0, 255, 136, 0.3);
+        }
+
+        .standings-item.you {
+            background: rgba(0, 212, 255, 0.2);
+            border: 2px solid var(--electric-teal);
+        }
+
+        .rank {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 18px;
+            font-weight: 700;
+            width: 30px;
+            color: var(--electric-teal);
+        }
+
+        .team-info {
+            flex: 1;
+            text-align: left;
+        }
+
+        .team-info .name {
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .team-info .record {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            opacity: 0.7;
+            color: var(--muted-gray);
+        }
+
+        .luck-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px 25px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 16px;
+            margin: 8px 0;
+            width: 100%;
+            max-width: 500px;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .luck-bar .team {
+            flex: 1;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .luck-bar .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
+            font-size: 20px;
+        }
+
+        .luck-bar.lucky .value { color: var(--fortune-green); }
+        .luck-bar.unlucky .value { color: var(--pulse-magenta); }
+
+        .placement-bar {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 4px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .place-label {
+            font-family: 'JetBrains Mono', monospace;
+            width: 40px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--muted-gray);
+        }
+
+        .bar-container {
+            flex: 1;
+            height: 16px;
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--fortune-green), var(--electric-teal));
+            border-radius: 8px;
+        }
+
+        .pct-label {
+            font-family: 'JetBrains Mono', monospace;
+            width: 50px;
+            font-size: 12px;
+            text-align: right;
+            color: var(--electric-teal);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+            max-width: 500px;
+        }
+
+        .stat-card {
+            background: rgba(26, 26, 46, 0.8);
+            border-radius: 16px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .stat-card .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 8px;
+            color: var(--muted-gray);
+        }
+
+        .stat-card .value {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .nav-dots {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 8px;
+            z-index: 100;
+        }
+
+        .nav-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(148, 163, 184, 0.3);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .nav-dot.active {
+            background: var(--electric-teal);
+            transform: scale(1.3);
+            box-shadow: 0 0 10px var(--electric-teal);
+        }
+
+        .nav-arrows {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            display: flex;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .nav-arrow {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid rgba(0, 212, 255, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+            color: var(--electric-teal);
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-arrow:hover:not(:disabled) {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--electric-teal);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.3);
+        }
+
+        .nav-arrow:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .slide-counter {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            opacity: 0.7;
+            z-index: 100;
+            color: var(--muted-gray);
+        }
+
+        .branding {
+            position: fixed;
+            top: 30px;
+            left: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--electric-teal);
+            z-index: 100;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="branding">FFWrapup</div>
+    <div class="wrapped-container">
+        <!-- Slide 1: Intro -->
+        <div class="slide slide-1 active" data-slide="1">
+            <div class="slide-label">Your 2025 Season</div>
+            <div class="big-text">Fantasy FOOSBALL</div>
+            <div class="medium-text" style="color: var(--electric-teal);">Wrapped</div>
+            <div class="small-text" style="margin-top: 30px;">Click or tap to continue →</div>
+        </div>
+
+        <!-- Slide 2: Final Standings -->
+        <div class="slide slide-2" data-slide="2">
+            <div class="slide-label">Final Standings</div>
+            <div class="medium-text" style="margin-bottom: 20px;">The Playoff Picture</div>
+            <div class="standings-list">
+                <div class="standings-item playoff">
+                    <span class="rank">1</span>
+                    <div class="team-info">
+                        <div class="name">TUGB</div>
+                        <div class="record">11-3 • 2189.74 pts</div>
+                    </div>
+                </div>
+                <div class="standings-item playoff">
+                    <span class="rank">2</span>
+                    <div class="team-info">
+                        <div class="name">HALL</div>
+                        <div class="record">10-4 • 2061.86 pts</div>
+                    </div>
+                </div>
+                <div class="standings-item playoff">
+                    <span class="rank">3</span>
+                    <div class="team-info">
+                        <div class="name">NATE</div>
+                        <div class="record">9-5 • 2129.36 pts</div>
+                    </div>
+                </div>
+                <div class="standings-item playoff">
+                    <span class="rank">4</span>
+                    <div class="team-info">
+                        <div class="name">MJ</div>
+                        <div class="record">8-6 • 2056.04 pts</div>
+                    </div>
+                </div>
+                <div class="standings-item playoff">
+                    <span class="rank">5</span>
+                    <div class="team-info">
+                        <div class="name">FNL</div>
+                        <div class="record">8-6 • 2015.70 pts</div>
+                    </div>
+                </div>
+                <div class="standings-item playoff">
+                    <span class="rank">6</span>
+                    <div class="team-info">
+                        <div class="name">LSky</div>
+                        <div class="record">6-8 • 1933.88 pts</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: The Luckiest -->
+        <div class="slide slide-3" data-slide="3">
+            <div class="slide-label">Schedule Luck</div>
+            <div class="emoji">🍀</div>
+            <div class="medium-text">The Luckiest Teams</div>
+            <div class="small-text" style="margin-bottom: 20px;">Wins above expected based on scoring</div>
+            <div class="standings-list">
+                <div class="luck-bar lucky">
+                    <span class="team">HALL</span>
+                    <span class="value">+2.11</span>
+                </div>
+                <div class="luck-bar lucky">
+                    <span class="team">TUGB</span>
+                    <span class="value">+1.22</span>
+                </div>
+                <div class="luck-bar lucky">
+                    <span class="team">NATE</span>
+                    <span class="value">+0.56</span>
+                </div>
+                <div class="luck-bar lucky">
+                    <span class="team">TM3</span>
+                    <span class="value">+0.44</span>
+                </div>
+                <div class="luck-bar lucky">
+                    <span class="team">FNL</span>
+                    <span class="value">+0.33</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: The Unluckiest -->
+        <div class="slide slide-4" data-slide="4">
+            <div class="slide-label">Schedule Luck</div>
+            <div class="emoji">💀</div>
+            <div class="medium-text">The Unluckiest Teams</div>
+            <div class="small-text" style="margin-bottom: 20px;">Wins below expected based on scoring</div>
+            <div class="standings-list">
+                <div class="luck-bar unlucky">
+                    <span class="team">SCOT</span>
+                    <span class="value">-2.00</span>
+                </div>
+                <div class="luck-bar unlucky">
+                    <span class="team">INJ</span>
+                    <span class="value">-1.33</span>
+                </div>
+                <div class="luck-bar unlucky">
+                    <span class="team">BERR</span>
+                    <span class="value">-0.89</span>
+                </div>
+                <div class="luck-bar unlucky">
+                    <span class="team">LSky</span>
+                    <span class="value">-0.44</span>
+                </div>
+                <div class="luck-bar lucky">
+                    <span class="team">MJ</span>
+                    <span class="value">+0.00</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Power Rankings -->
+        <div class="slide slide-5" data-slide="5">
+            <div class="slide-label">True Power Rankings</div>
+            <div class="emoji">💪</div>
+            <div class="medium-text">By Total Points</div>
+            <div class="standings-list">
+                <div class="standings-item">
+                    <span class="rank">1</span>
+                    <div class="team-info">
+                        <div class="name">TUGB</div>
+                        <div class="record">2189.74 pts • 156.4/week</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">2</span>
+                    <div class="team-info">
+                        <div class="name">NATE</div>
+                        <div class="record">2129.36 pts • 152.1/week</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">3</span>
+                    <div class="team-info">
+                        <div class="name">HALL</div>
+                        <div class="record">2061.86 pts • 147.3/week</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">4</span>
+                    <div class="team-info">
+                        <div class="name">MJ</div>
+                        <div class="record">2056.04 pts • 146.9/week</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">5</span>
+                    <div class="team-info">
+                        <div class="name">FNL</div>
+                        <div class="record">2015.70 pts • 144.0/week</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Highest Scoring Week -->
+        <div class="slide slide-6" data-slide="6">
+            <div class="slide-label">Highest Scoring Performance</div>
+            <div class="emoji">🔥</div>
+            <div class="team-name">TUGB</div>
+            <div class="big-number">208.30</div>
+            <div class="small-text">Week 13</div>
+        </div>
+
+        <!-- Slide 7: Lowest Scoring Week -->
+        <div class="slide slide-7" data-slide="7">
+            <div class="slide-label">The Disaster Game</div>
+            <div class="emoji">💀</div>
+            <div class="team-name">BERR</div>
+            <div class="big-number" style="color: var(--pulse-magenta);">83.06</div>
+            <div class="small-text">Week 11</div>
+            <div class="small-text" style="margin-top: 20px; opacity: 0.7;">Ouch. That's gotta hurt.</div>
+        </div>
+
+        <!-- Slide 8: Consistency -->
+        <div class="slide slide-8" data-slide="8">
+            <div class="slide-label">All-Play Record (vs Everyone Every Week)</div>
+            <div class="medium-text" style="margin-bottom: 20px;">Most Consistent Scorers</div>
+            <div class="standings-list">
+                <div class="standings-item">
+                    <span class="rank">1</span>
+                    <div class="team-info">
+                        <div class="name">TUGB</div>
+                        <div class="record">88-38 • 69.8% win rate</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">2</span>
+                    <div class="team-info">
+                        <div class="name">NATE</div>
+                        <div class="record">76-50 • 60.3% win rate</div>
+                    </div>
+                </div>
+                <div class="standings-item">
+                    <span class="rank">3</span>
+                    <div class="team-info">
+                        <div class="name">MJ</div>
+                        <div class="record">72-54 • 57.1% win rate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="small-text" style="margin-top: 20px; opacity: 0.7;">
+                SCOT: 63-63 (50.0%) — 6th most consistent
+            </div>
+        </div>
+
+        <!-- Slide 9: Your Season -->
+        <div class="slide slide-9" data-slide="9">
+            <div class="slide-label">Your Season</div>
+            <div class="team-name">SCOT</div>
+            <div class="card-grid">
+                <div class="stat-card">
+                    <div class="label">Record</div>
+                    <div class="value">5-9</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Total Points</div>
+                    <div class="value">1948</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Playoff Odds</div>
+                    <div class="value">64.8%</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Luck Factor</div>
+                    <div class="value" style="color: var(--pulse-magenta);">-2.00</div>
+                </div>
+            </div>
+            <div class="small-text" style="margin-top: 20px;">
+                😔 Unlucky — Missed Playoffs
+            </div>
+        </div>
+
+        <!-- Slide 10: Your Placement Distribution -->
+        <div class="slide slide-10" data-slide="10">
+            <div class="slide-label">Across 100,000 Simulations</div>
+            <div class="medium-text">Your Placement Distribution</div>
+            <div class="small-text" style="margin-bottom: 20px;">Where you'd finish with random schedules</div>
+            <div style="width: 100%; max-width: 400px;">
+                    <div class="placement-bar">
+                        <span class="place-label">1st</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 3.4000000000000004%"></div>
+                        </div>
+                        <span class="pct-label">1.7%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">2nd</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 9.546000000000001%"></div>
+                        </div>
+                        <span class="pct-label">4.8%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">3rd</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 16.968%"></div>
+                        </div>
+                        <span class="pct-label">8.5%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">4th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 24.602%"></div>
+                        </div>
+                        <span class="pct-label">12.3%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">5th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 33.238%"></div>
+                        </div>
+                        <span class="pct-label">16.6%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">6th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 41.942%"></div>
+                        </div>
+                        <span class="pct-label">21.0%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">7th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 34.064%"></div>
+                        </div>
+                        <span class="pct-label">17.0%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">8th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 22.062%"></div>
+                        </div>
+                        <span class="pct-label">11.0%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">9th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 11.554%"></div>
+                        </div>
+                        <span class="pct-label">5.8%</span>
+                    </div>
+                    <div class="placement-bar">
+                        <span class="place-label">10th</span>
+                        <div class="bar-container">
+                            <div class="bar-fill" style="width: 2.624%"></div>
+                        </div>
+                        <span class="pct-label">1.3%</span>
+                    </div>
+            </div>
+        </div>
+
+        <!-- Slide 11: Final Summary -->
+        <div class="slide slide-11" data-slide="11">
+            <div class="slide-label">That's a wrap!</div>
+            <div class="big-text">2025</div>
+            <div class="big-text" style="color: var(--champion-gold);">Complete</div>
+            <div class="card-grid" style="margin-top: 30px;">
+                <div class="stat-card">
+                    <div class="label">Champion</div>
+                    <div class="value" style="font-size: 14px; color: var(--champion-gold);">TUGB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Top Scorer</div>
+                    <div class="value" style="font-size: 14px; color: var(--electric-teal);">TUGB</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Luckiest</div>
+                    <div class="value" style="font-size: 14px; color: var(--fortune-green);">HALL</div>
+                </div>
+                <div class="stat-card">
+                    <div class="label">Unluckiest</div>
+                    <div class="value" style="font-size: 14px; color: var(--pulse-magenta);">SCOT</div>
+                </div>
+            </div>
+            <div class="small-text" style="margin-top: 30px;">
+                See you next season! 🏈
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="nav-dots">
+        <div class="nav-dot active" data-target="1"></div>
+        <div class="nav-dot " data-target="2"></div>
+        <div class="nav-dot " data-target="3"></div>
+        <div class="nav-dot " data-target="4"></div>
+        <div class="nav-dot " data-target="5"></div>
+        <div class="nav-dot " data-target="6"></div>
+        <div class="nav-dot " data-target="7"></div>
+        <div class="nav-dot " data-target="8"></div>
+        <div class="nav-dot " data-target="9"></div>
+        <div class="nav-dot " data-target="10"></div>
+        <div class="nav-dot " data-target="11"></div>
+    </div>
+
+    <div class="nav-arrows">
+        <button class="nav-arrow" id="prevBtn" disabled>←</button>
+        <button class="nav-arrow" id="nextBtn">→</button>
+    </div>
+
+    <div class="slide-counter">
+        <span id="currentSlide">1</span> / 11
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 11;
+
+        function goToSlide(n) {
+            if (n < 1 || n > totalSlides) return;
+
+            document.querySelector('.slide.active').classList.remove('active');
+            document.querySelector('.nav-dot.active').classList.remove('active');
+
+            currentSlide = n;
+            document.querySelector(`[data-slide="${n}"]`).classList.add('active');
+            document.querySelector(`[data-target="${n}"]`).classList.add('active');
+
+            document.getElementById('currentSlide').textContent = n;
+            document.getElementById('prevBtn').disabled = n === 1;
+            document.getElementById('nextBtn').disabled = n === totalSlides;
+        }
+
+        function nextSlide() { goToSlide(currentSlide + 1); }
+        function prevSlide() { goToSlide(currentSlide - 1); }
+
+        document.getElementById('nextBtn').addEventListener('click', nextSlide);
+        document.getElementById('prevBtn').addEventListener('click', prevSlide);
+
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.target)));
+        });
+
+        document.querySelector('.wrapped-container').addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-arrow') && !e.target.closest('.nav-dot')) {
+                nextSlide();
+            }
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+            else if (e.key === 'ArrowLeft') prevSlide();
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', e => { touchStartX = e.changedTouches[0].screenX; });
+        document.addEventListener('touchend', e => {
+            const touchEndX = e.changedTouches[0].screenX;
+            if (touchStartX - touchEndX > 50) nextSlide();
+            else if (touchEndX - touchStartX > 50) prevSlide();
+        });
+    </script>
+</body>
+</html>
